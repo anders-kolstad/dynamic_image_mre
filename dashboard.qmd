@@ -1,0 +1,61 @@
+---
+title: "dashboard"
+format: 
+  dashboard:
+    orientation: columns
+---
+
+
+```{r setup}
+library(tidyverse)
+
+```
+
+```{r createData}
+
+# get local relative paths
+lib <- tibble(
+  paths = list.files(path = "img/", recursive = T, full.names = T)
+)
+
+# make availble to ojs
+ojs_define(dat = jsonlite::toJSON(lib))
+
+```
+
+## Column {width="35%"}
+
+### Row {height="20%"}
+
+```{ojs}
+
+viewof selectedImagePath = Inputs.select(
+  JSON.parse(dat).map(d => d.paths),
+  {
+    label: "Velg bilde",
+    unique: true
+  }
+)
+```
+
+### Row {height="80%"}
+```{ojs}
+// print output from dropdown
+selectedImagePath
+```
+
+## Column {width="65%"}
+
+```{ojs}
+html`<img 
+    style="
+      border-radius: 12px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    "
+    src=${selectedImagePath}
+    alt="Selected image"
+  >`
+```
