@@ -2,5 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
-
 /.quarto/
+
+dynamic_image_mre.Rproj
